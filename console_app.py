@@ -10,7 +10,9 @@ if __name__ == "__main__":
 
     data_to_process = CsvParser(args['csv_path']).get_data()
 
-    sorter = Sorter(data_to_process, filter_type=args['value_type'], sort_order=args['sort_order'])
+    sorter = Sorter(data_to_process)
+    sorter.set_filter(args['value_type'])
+    sorter.set_sort_order(args['sort_order'])
 
     sorted_values = sorter.execute()
     print(', '.join(sorted_values))

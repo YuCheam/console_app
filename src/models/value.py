@@ -26,6 +26,16 @@ class Value(ABC):
         String representation of type
         """
         pass
+
+    @abstractmethod
+    def is_valid_value(value: str):
+        """
+        Checks if given string value can be used to initialize Value type
+
+        Arguments:
+            value -- string value
+        """
+        pass
     
     @staticmethod
     def _is_instance(other):
@@ -40,18 +50,8 @@ class Value(ABC):
         """
         return (hasattr(other, 'given_form') and hasattr(other, 'evaluated_form')
             and hasattr(other, 'type_str'))
-    
-    @abstractmethod
-    def is_valid_value(value: str):
-        """
-        Checks if given string value can be used to initialize Value type
 
-        Arguments:
-            value -- string value
-        """
-        pass
-
-    # Override for custom sorting of type
+    # Override for custom sorting for type
     def __eq__(self, other):
         if not self._is_instance(other):
             return False
