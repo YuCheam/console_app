@@ -64,7 +64,7 @@ class Sorter():
         else:
             self._filtered_values = list(filter(lambda value: value.type_str == self._filter_type, self.values))
     
-    def execute(self):
+    def sort(self):
         """
         Executes sorting on given values list with by filter and sort order
 

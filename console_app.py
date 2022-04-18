@@ -14,6 +14,6 @@ if __name__ == "__main__":
     sorter.set_filter(args['value_type'])
     sorter.set_sort_order(args['sort_order'])
 
-    sorted_values = sorter.execute()
+    sorted_values = sorter.sort()
     print(', '.join(sorted_values))
     
