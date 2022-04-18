@@ -16,8 +16,8 @@ class Sorter():
             sort_order -- order to sort values (default: {"ascending"})
         """
         self.values = values
-        self.filter_type = filter_type
-        self.sort_order = sort_order
+        self.set_filter(filter_type)
+        self.set_sort_order(sort_order)
     
     @property
     def values(self):
@@ -41,7 +41,10 @@ class Sorter():
         Arguments:
             filter_type -- value type to filter by
         """
-        self.filter_type = filter_type
+        if filter_type in ['alpha', 'numeric', 'both']:
+            self._filter_type = filter_type
+        else:
+            raise ValueError(f'Filter type {filter_type} not supported')
     
     def set_sort_order(self, sort_order):
         """
@@ -50,13 +53,16 @@ class Sorter():
         Arguments:
             sort_order -- order to sort values by
         """
-        self.sort_order = sort_order
+        if sort_order in ['ascending', 'descending']:
+            self._sort_order = sort_order
+        else:
+            raise ValueError(f'Sort order {sort_order} not supported')
     
     def _filter_values(self):
-        if self.filter_type == 'both':
+        if self._filter_type == 'both':
             self._filtered_values = self.values
         else:
-            self._filtered_values = list(filter(lambda value: value.type_str == self.filter_type, self.values))
+            self._filtered_values = list(filter(lambda value: value.type_str == self._filter_type, self.values))
     
     def execute(self):
         """
@@ -67,10 +73,10 @@ class Sorter():
         """
         self._filter_values()
 
-        if self.sort_order == 'ascending':
+        if self._sort_order == 'ascending':
             sorted_values = sorted(self._filtered_values)
             
-        elif self.sort_order == 'descending':
+        elif self._sort_order == 'descending':
             sorted_values = sorted(self._filtered_values, reverse=True)
         
         return list(map(lambda x: x.given_form, sorted_values))

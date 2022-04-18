@@ -108,6 +108,6 @@ class NumericValue(Value):
     def is_valid_value(value: str):
         try:
             float(value)
-            return value.find("'") == -1 and True 
+            return value.find("'") == -1 and True
         except ValueError:
             return False
